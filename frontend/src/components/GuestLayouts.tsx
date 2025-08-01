@@ -11,7 +11,7 @@ export default function GuestLayouts() {
   }
 
   return (
-    <div className='bg-red-400 max-w-[40rem] mt-30 m-auto'>
+    <div className=' max-w-[40rem] mt-30 p-5 shadow-lg m-auto rounded-2xl border-1 border-purple-400'>
        <Outlet />
     </div>
   )

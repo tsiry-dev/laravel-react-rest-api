@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
-const TOKEN_KEY: string = "ACCESS_TOKEN";
+import { TOKEN_KEY } from "../types/localestorageType";
+import { getToken } from "../utils/auth";
 
 type UserType = {
     name: string;
@@ -10,8 +11,8 @@ type UserType = {
 interface StateContextType {
     user: UserType | null;
     token: string | null;
-    setToken: (token: string) => void;
-    setUser: (user: UserType) => void;
+    setToken: (token: string | null) => void;
+    setUser: (user: UserType | null) => void;
 }
 
 const initialState: StateContextType = {
@@ -21,20 +22,24 @@ const initialState: StateContextType = {
     setUser: () => {},
 }
 
+type PropsContextProvider = {
+  children: ReactNode;
+};
+
 const StateContext = createContext(initialState);
 
 
-export const ContextProvider = ({ children }: any) => {
+export const ContextProvider = ({ children }: PropsContextProvider) => {
 
     const [user, setUser] = useState<UserType | null>({
         name: 'John Doe',
         email: 'john@doe.com',
     });
     const [token, _setToken] = useState<string | null>(
-        localStorage.getItem(TOKEN_KEY)
+        getToken()
     );
 
-    const setToken = (token: string) => {
+    const setToken = (token: string | null) => {
          _setToken(token);
 
          if(token) {

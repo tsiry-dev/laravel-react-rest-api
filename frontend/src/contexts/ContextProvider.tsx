@@ -1,11 +1,14 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 import { TOKEN_KEY } from "../types/localestorageType";
 import { getToken } from "../utils/auth";
+import axiosClient from "../services/apiClient";
 
-type UserType = {
+export type UserType = {
+    id: number;
     name: string;
     email: string;
+    role: string;
 }
 
 interface StateContextType {
@@ -31,10 +34,7 @@ const StateContext = createContext(initialState);
 
 export const ContextProvider = ({ children }: PropsContextProvider) => {
 
-    const [user, setUser] = useState<UserType | null>({
-        name: 'John Doe',
-        email: 'john@doe.com',
-    });
+    const [user, setUser] = useState<UserType | null>(null);
     const [token, _setToken] = useState<string | null>(
         getToken()
     );
@@ -48,6 +48,23 @@ export const ContextProvider = ({ children }: PropsContextProvider) => {
             localStorage.removeItem(TOKEN_KEY);
          }
     }
+
+      useEffect(() => {
+         let isMounted = true;
+
+        if (token && !user) {
+            axiosClient.get("/user")
+                .then(({ data }) =>  {
+                    if (isMounted) {
+                        setUser(data.data);
+                    }
+                })
+        }
+
+        return () => {
+           isMounted = false;
+        };
+      }, [token, user]);
 
     return (
         <StateContext.Provider value={{

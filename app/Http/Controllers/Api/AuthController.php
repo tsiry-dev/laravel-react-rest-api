@@ -23,6 +23,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'remember_token' => \Illuminate\Support\Str::random(15),
         ]);
 
         $token = $user->createToken('laravel-react-rest-api')->plainTextToken;

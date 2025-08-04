@@ -6,6 +6,8 @@ import NotFound from "../views/NotFound";
 import GuestLayouts from "../components/GuestLayouts";
 import AppLayout from "../components/AppLayout";
 import Dashboard from "../views/Dashboard";
+import ProtectedRoute from "../components/security/ProtectedRoute";
+import Contact from "../views/Contact";
 
 const router = createBrowserRouter([
   {
@@ -18,11 +20,19 @@ const router = createBrowserRouter([
          },
          {
             path: "/users",
-            element: <Users />
+            element: (
+                <ProtectedRoute role={['admin']}>
+                    <Users />
+                </ProtectedRoute>
+            )
          },
          {
             path: "/dashboard",
             element: <Dashboard />
+         },
+         {
+            path: "/contacts",
+            element: <Contact />
          },
      ]
   },

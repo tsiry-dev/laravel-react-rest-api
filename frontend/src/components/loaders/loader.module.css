@@ -1,0 +1,41 @@
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 45px;
+  margin: auto;
+  margin-top: 9rem;
+  aspect-ratio: .75;
+  --c: no-repeat linear-gradient(#9704ed 0 0);
+  background:
+    var(--c) 0%   100%,
+    var(--c) 50%  100%,
+    var(--c) 100% 100%;
+  background-size: 20% 65%;
+  animation: l5 1s infinite linear;
+}
+@keyframes l5 {
+  20% {background-position: 0% 50% ,50% 100%,100% 100%}
+  40% {background-position: 0% 0%  ,50% 50% ,100% 100%}
+  60% {background-position: 0% 100%,50% 0%  ,100% 50% }
+  80% {background-position: 0% 100%,50% 100%,100% 0%  }
+}
+
+
+.remove {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid;
+  border-color: #FF3D00 transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

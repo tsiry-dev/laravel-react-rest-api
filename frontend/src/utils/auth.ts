@@ -8,4 +8,3 @@ export const getToken = (): string | null => {
 export const clearToken = (): void => {
     localStorage.removeItem(TOKEN_KEY);
 }
-

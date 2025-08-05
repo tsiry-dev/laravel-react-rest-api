@@ -19,8 +19,11 @@ Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login'])
 
 Route::middleware(['auth:sanctum', 'user'])->group(function (){
 
+    Route::get('/contacts/count', [ContactController::class, 'count']);
     Route::get('/contacts/{id}', [ContactController::class, 'findAll']);
     Route::delete('/contacts/remove/{id}', [ContactController::class, 'destroy']);
+    Route::post('/contacts', [ContactController::class, 'store']);
+    Route::put('/contacts/{contact}', [ContactController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
 
